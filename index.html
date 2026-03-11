@@ -9,6 +9,39 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
+    <!-- Distant Moon -->
+    <div class="space-moon"></div>
+
+    <!-- Shooting Stars -->
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+
+    <!-- Comets -->
+    <div class="comet"><div class="comet-head"></div><div class="comet-tail"></div></div>
+    <div class="comet"><div class="comet-head"></div><div class="comet-tail"></div></div>
+    <div class="comet"><div class="comet-head"></div><div class="comet-tail"></div></div>
+
+    <!-- Asteroids -->
+    <div class="asteroid"><div class="asteroid-body"></div></div>
+    <div class="asteroid"><div class="asteroid-body"></div></div>
+    <div class="asteroid"><div class="asteroid-body"></div></div>
+    <div class="asteroid"><div class="asteroid-body"></div></div>
+    <div class="asteroid"><div class="asteroid-body"></div></div>
+    <div class="asteroid"><div class="asteroid-body"></div></div>
+
+    <!-- Space Rocks (tiny debris) -->
+    <div class="space-rock"></div>
+    <div class="space-rock"></div>
+    <div class="space-rock"></div>
+    <div class="space-rock"></div>
+    <div class="space-rock"></div>
+    <div class="space-rock"></div>
+    <div class="space-rock"></div>
+    <div class="space-rock"></div>
+
     <!-- Scroll Progress Indicator -->
     <div class="scroll-progress"></div>
 
@@ -28,11 +61,11 @@
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li><a href="#live" class="nav-link">Live</a></li>
             </ul>
             <div class="hamburger">
                 <span></span>
@@ -80,6 +113,7 @@
 
             <div class="hero-text">
                 <div class="hero-greeting">Hey, I'm <span class="name-highlight">Emmanuel Kiptoo Kili</span> 👋</div>
+                <div class="availability-badge"><span class="avail-dot"></span> Available for Hire</div>
                 <h1 class="hero-title">Software Developer & IT Specialist</h1>
                 <p class="hero-subtitle">Building scalable systems that empower enterprises.</p>
                 
@@ -96,7 +130,7 @@
                     <a href="#projects" class="btn btn-primary">
                         <i class="fas fa-rocket"></i> View My Projects
                     </a>
-                    <a href="https://youtube.com" target="_blank" class="btn btn-secondary">
+                    <a href="https://www.youtube.com/@developerkili" target="_blank" class="btn btn-secondary">
                         <i class="fab fa-youtube"></i> Visit My YouTube
                     </a>
                     <a href="#contact" class="btn btn-tertiary">
@@ -109,21 +143,6 @@
         <div class="scroll-indicator">
             <span>Scroll to explore</span>
             <i class="fas fa-chevron-down"></i>
-        </div>
-    </section>
-
-    <!-- Live Coding Demo Section -->
-    <section id="live" class="live-demo">
-        <div class="container">
-            <h2 class="section-title">Live Coding Demo</h2>
-            <div class="code-window">
-                <div class="window-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                </div>
-                <pre class="window-code"><code id="live-code"></code><span class="caret" aria-hidden="true"></span></pre>
-            </div>
         </div>
     </section>
 
@@ -214,6 +233,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Stats Counter -->
+            <div class="stats-row">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="12">0</div>
+                    <div class="stat-label">Projects Delivered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="5">0</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="8">0</div>
+                    <div class="stat-label">Enterprise Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="6">0</div>
+                    <div class="stat-label">Technologies</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -281,145 +320,221 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
+    <!-- Services Section -->
+    <section id="services" class="services">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-globe"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>E-Citizen of Ghana</h3>
-                        <p>Government service portal for efficiency and transparency. Streamlines citizen interactions with government services.</p>
-                        <div class="project-tags">
-                            <span>#ASP.NETCore</span>
-                            <span>#Blazor</span>
-                            <span>#EnterpriseSystems</span>
-                        </div>
-                    </div>
+            <h2 class="section-title">Services I Offer</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                    <h3>Web Applications</h3>
+                    <p>Enterprise-grade web apps with ASP.NET Core, Blazor, and modern frontend frameworks. Scalable, secure, and performant.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Custom Dashboards</li>
+                        <li><i class="fas fa-check"></i> Admin Portals</li>
+                        <li><i class="fas fa-check"></i> SaaS Platforms</li>
+                    </ul>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>24-Security App</h3>
-                        <p>Request professional security services online. Connect with vetted security professionals instantly.</p>
-                        <div class="project-tags">
-                            <span>#MobileApp</span>
-                            <span>#ServiceMarketplace</span>
-                            <span>#RealTime</span>
-                        </div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Mobile Apps</h3>
+                    <p>Cross-platform mobile applications using .NET MAUI. One codebase for Android, iOS, and Windows.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> .NET MAUI</li>
+                        <li><i class="fas fa-check"></i> Offline-First</li>
+                        <li><i class="fas fa-check"></i> Push Notifications</li>
+                    </ul>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Capital Markets Authority System</h3>
-                        <p>Regulates licensing and compliance. Enterprise system for financial market oversight and regulation.</p>
-                        <div class="project-tags">
-                            <span>#FinancialSystems</span>
-                            <span>#Compliance</span>
-                            <span>#Enterprise</span>
-                        </div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-plug"></i></div>
+                    <h3>API Integration</h3>
+                    <p>Seamless third-party API integrations, RESTful services, and microservices architecture for enterprise systems.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> REST & GraphQL</li>
+                        <li><i class="fas fa-check"></i> Payment Gateways</li>
+                        <li><i class="fas fa-check"></i> Data Pipelines</li>
+                    </ul>
                 </div>
-
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-shopping-cart"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Relay E-Commerce App</h3>
-                        <p>Marketplace similar to Jumia. Full-featured e-commerce platform built with .NET MAUI for cross-platform support.</p>
-                        <div class="project-tags">
-                            <span>#.NETMAUI</span>
-                            <span>#ECommerce</span>
-                            <span>#CrossPlatform</span>
-                        </div>
-                    </div>
+                <div class="service-card">
+                    <div class="service-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>IT Infrastructure</h3>
+                    <p>Network setup, Cisco configuration, CCTV installation, and complete IT support for organizations.</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Cisco Networking</li>
+                        <li><i class="fas fa-check"></i> Server Setup</li>
+                        <li><i class="fas fa-check"></i> Security Systems</li>
+                    </ul>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-industry"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Pro-Silo Management System</h3>
-                        <p>Buffalo Millers production control system. Manages silo data, production tracking, and inventory optimization.</p>
-                        <div class="project-tags">
-                            <span>#Manufacturing</span>
-                            <span>#IoT</span>
-                            <span>#RealTimeMonitoring</span>
-                        </div>
-                    </div>
+    <!-- Live Coding Demo Section -->
+    <section id="live" class="live-demo">
+        <div class="container">
+            <h2 class="section-title">Live Coding Demo</h2>
+            <div class="code-window">
+                <div class="window-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
                 </div>
+                <pre class="window-code"><code id="live-code"></code><span class="caret" aria-hidden="true"></span></pre>
+            </div>
+        </div>
+    </section>
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-laptop"></i>
-                        </div>
-                    </div>
-                    <div class="project-content">
-                        <h3>ICTAMS (KRA)</h3>
-                        <p>ICT Asset Management System for Kenya Revenue Authority. Tracks and manages IT assets across the organization.</p>
-                        <div class="project-tags">
-                            <span>#AssetManagement</span>
-                            <span>#Government</span>
-                            <span>#Enterprise</span>
-                        </div>
-                    </div>
+    <!-- Projects Section - Space Theme -->
+    <section id="projects" class="space-projects">
+        <div class="space-bg">
+            <div class="stars-layer stars-small"></div>
+            <div class="stars-layer stars-medium"></div>
+            <div class="stars-layer stars-large"></div>
+            <div class="nebula nebula-1"></div>
+            <div class="nebula nebula-2"></div>
+        </div>
+
+        <div class="space-header">
+            <h2 class="space-title">Explore My Projects</h2>
+            <p class="space-subtitle">Each planet represents a project I've built — drag or use arrows to orbit through them</p>
+            <div class="space-nav-hint">
+                <span class="scroll-arrow left" id="spaceLeft">&#10094;</span>
+                <span class="hint-text">Click any project to see details</span>
+                <span class="scroll-arrow right" id="spaceRight">&#10095;</span>
+            </div>
+        </div>
+
+        <div class="orbit-viewport" id="orbitViewport">
+            <div class="orbit-scene">
+                <!-- Sun at the center of the orbit -->
+                <div class="orbit-sun">
+                    <div class="sun-core"></div>
+                    <div class="sun-glow"></div>
+                    <div class="sun-rays"></div>
                 </div>
+                <div class="orbit-ring-visual"></div>
+                <div class="orbit-carousel" id="orbitCarousel">
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-heartbeat"></i>
+                    <div class="planet" data-glow="#00d4ff">
+                        <div class="planet-body"><img src="e-citizen.png" alt="E-Citizen of Ghana"></div>
+                        <div class="planet-label">E-Citizen</div>
+                        <div class="planet-info">
+                            <h3>E-Citizen of Ghana</h3>
+                            <p>Government service portal for efficiency and transparency.</p>
+                            <div class="planet-tags"><span>#ASP.NETCore</span><span>#Blazor</span><span>#Enterprise</span></div>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <h3>MumCare App</h3>
-                        <p>Health reminder system for expectant mothers. Provides personalized health tips and appointment reminders.</p>
-                        <div class="project-tags">
-                            <span>#Healthcare</span>
-                            <span>#MobileApp</span>
-                            <span>#Wellness</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="project-card">
-                    <div class="project-image">
-                        <div class="project-placeholder">
-                            <i class="fas fa-hospital"></i>
+                    <div class="planet" data-glow="#ff4757">
+                        <div class="planet-body"><img src="24 security.png" alt="24-Security App"></div>
+                        <div class="planet-label">24-Security</div>
+                        <div class="planet-info">
+                            <h3>24-Security App</h3>
+                            <p>Modern security services platform. Connect with professionals instantly.</p>
+                            <div class="planet-tags"><span>#MobileApp</span><span>#Marketplace</span><span>#RealTime</span></div>
                         </div>
                     </div>
-                    <div class="project-content">
-                        <h3>Colnev Medicare System</h3>
-                        <p>EMR solution for hospitals. Comprehensive Electronic Medical Records system for healthcare providers.</p>
-                        <div class="project-tags">
-                            <span>#Healthcare</span>
-                            <span>#EMR</span>
-                            <span>#EnterpriseSystems</span>
+
+                    <div class="planet" data-glow="#ffa502">
+                        <div class="planet-body"><img src="cma.png" alt="Capital Markets Authority"></div>
+                        <div class="planet-label">CMA Kenya</div>
+                        <div class="planet-info">
+                            <h3>Capital Markets Authority</h3>
+                            <p>Regulates licensing and compliance for Kenya's financial markets.</p>
+                            <div class="planet-tags"><span>#Financial</span><span>#Compliance</span><span>#Enterprise</span></div>
                         </div>
                     </div>
+
+                    <div class="planet" data-glow="#2ed573">
+                        <div class="planet-body"><img src="Relay.png" alt="Relay E-Commerce"></div>
+                        <div class="planet-label">Relay</div>
+                        <div class="planet-info">
+                            <h3>Relay E-Commerce App</h3>
+                            <p>Full-featured cross-platform marketplace built with .NET MAUI.</p>
+                            <div class="planet-tags"><span>#.NETMAUI</span><span>#ECommerce</span><span>#CrossPlatform</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#ff6348">
+                        <div class="planet-body"><img src="solo.png" alt="Pro-Silo Management"></div>
+                        <div class="planet-label">Pro-Silo</div>
+                        <div class="planet-info">
+                            <h3>Pro-Silo Management System</h3>
+                            <p>Buffalo Millers production control, silo data and inventory optimization.</p>
+                            <div class="planet-tags"><span>#Manufacturing</span><span>#IoT</span><span>#Monitoring</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#e056fd">
+                        <div class="planet-body"><img src="kra.png" alt="ICTAMS KRA"></div>
+                        <div class="planet-label">ICTAMS</div>
+                        <div class="planet-info">
+                            <h3>ICTAMS (KRA)</h3>
+                            <p>ICT Asset Management System for Kenya Revenue Authority.</p>
+                            <div class="planet-tags"><span>#AssetMgmt</span><span>#Government</span><span>#Enterprise</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#f78fb3">
+                        <div class="planet-body"><img src="mumcare.png" alt="MumCare App"></div>
+                        <div class="planet-label">MumCare</div>
+                        <div class="planet-info">
+                            <h3>MumCare App</h3>
+                            <p>Health reminder system for expectant mothers with personalized tips.</p>
+                            <div class="planet-tags"><span>#Healthcare</span><span>#Mobile</span><span>#Wellness</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#7bed9f">
+                        <div class="planet-body"><img src="colnevmedcare.png" alt="Colnev Medicare"></div>
+                        <div class="planet-label">Colnev</div>
+                        <div class="planet-info">
+                            <h3>Colnev Medicare System</h3>
+                            <p>Comprehensive EMR solution for hospitals and healthcare providers.</p>
+                            <div class="planet-tags"><span>#Healthcare</span><span>#EMR</span><span>#Enterprise</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#f9ca24">
+                        <div class="planet-body"><img src="dairy.png" alt="Rodneys Dairy"></div>
+                        <div class="planet-label">Dairy</div>
+                        <div class="planet-info">
+                            <h3>Rodneys Dairy</h3>
+                            <p>Dairy farm management — animals, feeds, milking and all operations.</p>
+                            <div class="planet-tags"><span>#Dairy</span><span>#Blazor</span><span>#Agriculture</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#3742fa">
+                        <div class="planet-body"><img src="sbg.png" alt="SBG Uganda Brokerage"></div>
+                        <div class="planet-label">SBG Uganda</div>
+                        <div class="planet-info">
+                            <h3>SBG Uganda Brokerage</h3>
+                            <p>Securities brokerage — portfolio tracking, trading and market data.</p>
+                            <div class="planet-tags"><span>#Financial</span><span>#Brokerage</span><span>#Trading</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#1e90ff">
+                        <div class="planet-body"><img src="insurance.png" alt="Standard Insurance Mozambique"></div>
+                        <div class="planet-label">Insurance MZ</div>
+                        <div class="planet-info">
+                            <h3>Standard Insurance Mozambique</h3>
+                            <p>Insurance management — policies, quotations and KYC for Mozambique.</p>
+                            <div class="planet-tags"><span>#Insurance</span><span>#Enterprise</span><span>#Mozambique</span></div>
+                        </div>
+                    </div>
+
+                    <div class="planet" data-glow="#ff9f43">
+                        <div class="planet-body"><img src="Sacco welfare.png" alt="Staff Welfare Sacco"></div>
+                        <div class="planet-label">Sacco</div>
+                        <div class="planet-info">
+                            <h3>Staff Welfare Sacco</h3>
+                            <p>Microfinance system — loans, disbursements and bank integration.</p>
+                            <div class="planet-tags"><span>#Microfinance</span><span>#Sacco</span><span>#Enterprise</span></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -511,31 +626,290 @@
         <div class="container">
             <h2 class="section-title">Education & Certifications</h2>
             <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-graduation-cap"></i>
+                <div class="education-card flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="education-icon"><i class="fas fa-graduation-cap"></i></div>
+                            <h3>BSc Information Technology</h3>
+                            <p class="education-institution">University of Kabianga</p>
+                            <p class="flip-hint">Hover to see details</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>BSc Information Technology</h3>
+                            <p>Comprehensive IT education covering software development, networking, and systems administration.</p>
+                            <div class="flip-skills"><span>Software Dev</span><span>Networking</span><span>Sys Admin</span><span>Databases</span></div>
+                        </div>
                     </div>
-                    <h3>BSc Information Technology</h3>
-                    <p class="education-institution">University of Kabianga</p>
-                    <p class="education-description">Comprehensive IT education covering software development, networking, and systems administration.</p>
                 </div>
 
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-certificate"></i>
+                <div class="education-card flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="education-icon"><i class="fas fa-certificate"></i></div>
+                            <h3>Microsoft IT Academy</h3>
+                            <p class="education-institution">Certifications</p>
+                            <p class="flip-hint">Hover to see details</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Microsoft IT Academy</h3>
+                            <p>Server Administration, Cisco Networking, Azure Cloud Computing, and Enterprise Systems.</p>
+                            <div class="flip-skills"><span>Azure</span><span>Windows Server</span><span>Cisco</span><span>Enterprise</span></div>
+                        </div>
                     </div>
-                    <h3>Microsoft IT Academy</h3>
-                    <p class="education-institution">Certifications</p>
-                    <p class="education-description">Server Administration, Cisco Networking, Azure Cloud Computing, and Enterprise Systems.</p>
                 </div>
 
-                <div class="education-card">
-                    <div class="education-icon">
-                        <i class="fas fa-server"></i>
+                <div class="education-card flip-card">
+                    <div class="flip-inner">
+                        <div class="flip-front">
+                            <div class="education-icon"><i class="fas fa-server"></i></div>
+                            <h3>Advanced Networking</h3>
+                            <p class="education-institution">Cisco Academy</p>
+                            <p class="flip-hint">Hover to see details</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Advanced Networking</h3>
+                            <p>CCNA preparation, network design, security, and infrastructure management.</p>
+                            <div class="flip-skills"><span>CCNA</span><span>Network Design</span><span>Security</span><span>Infrastructure</span></div>
+                        </div>
                     </div>
-                    <h3>Advanced Networking</h3>
-                    <p class="education-institution">Cisco Academy</p>
-                    <p class="education-description">CCNA preparation, network design, security, and infrastructure management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Awards & Achievements -->
+    <section id="awards" class="awards">
+        <div class="container">
+            <h2 class="section-title">Awards & Achievements</h2>
+            <div class="awards-grid">
+                <div class="award-card">
+                    <div class="award-icon"><i class="fas fa-trophy"></i></div>
+                    <h3>Enterprise Solutions Expert</h3>
+                    <p>Recognized for delivering 12+ enterprise-grade systems across government and private sectors.</p>
+                </div>
+                <div class="award-card">
+                    <div class="award-icon"><i class="fas fa-certificate"></i></div>
+                    <h3>Microsoft Certified</h3>
+                    <p>Certified in Server Administration, Azure Cloud, and Enterprise Systems through Microsoft IT Academy.</p>
+                </div>
+                <div class="award-card">
+                    <div class="award-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Cisco Networking</h3>
+                    <p>CCNA-level expertise in network design, security implementation, and infrastructure management.</p>
+                </div>
+                <div class="award-card">
+                    <div class="award-icon"><i class="fas fa-globe-africa"></i></div>
+                    <h3>Multi-Country Impact</h3>
+                    <p>Systems deployed across Kenya, Ghana, Uganda, and Mozambique serving millions of users.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow / Process -->
+    <section id="workflow" class="workflow">
+        <div class="container">
+            <h2 class="section-title">My Development Process</h2>
+            <div class="workflow-steps">
+                <div class="wf-step">
+                    <div class="wf-number">01</div>
+                    <div class="wf-icon"><i class="fas fa-search"></i></div>
+                    <h3>Discovery</h3>
+                    <p>Understanding your business needs, requirements gathering, and project scoping.</p>
+                </div>
+                <div class="wf-connector"><i class="fas fa-chevron-right"></i></div>
+                <div class="wf-step">
+                    <div class="wf-number">02</div>
+                    <div class="wf-icon"><i class="fas fa-pencil-ruler"></i></div>
+                    <h3>Design</h3>
+                    <p>Architecture planning, database design, UI/UX wireframes, and technical specification.</p>
+                </div>
+                <div class="wf-connector"><i class="fas fa-chevron-right"></i></div>
+                <div class="wf-step">
+                    <div class="wf-number">03</div>
+                    <div class="wf-icon"><i class="fas fa-code"></i></div>
+                    <h3>Develop</h3>
+                    <p>Agile development with regular checkpoints, code reviews, and quality assurance.</p>
+                </div>
+                <div class="wf-connector"><i class="fas fa-chevron-right"></i></div>
+                <div class="wf-step">
+                    <div class="wf-number">04</div>
+                    <div class="wf-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Deploy</h3>
+                    <p>Testing, deployment, training, and ongoing support with monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub Activity -->
+    <section id="github" class="github-activity">
+        <div class="container">
+            <h2 class="section-title">GitHub Activity</h2>
+            <div class="github-card">
+                <div class="github-header">
+                    <i class="fab fa-github"></i>
+                    <h3>Contribution Heatmap</h3>
+                    <a href="https://github.com/OBASAKILLI" target="_blank">View Profile <i class="fas fa-external-link-alt"></i></a>
+                </div>
+                <div class="heatmap-grid" id="heatmapGrid"></div>
+                <div class="heatmap-legend">
+                    <span>Less</span>
+                    <div class="cell" style="background:rgba(255,255,255,0.04)"></div>
+                    <div class="cell" style="background:rgba(0,212,255,0.15)"></div>
+                    <div class="cell" style="background:rgba(0,212,255,0.3)"></div>
+                    <div class="cell" style="background:rgba(168,85,247,0.45)"></div>
+                    <div class="cell" style="background:rgba(168,85,247,0.7)"></div>
+                    <span>More</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What People Say</h2>
+            <div class="testimonial-carousel" id="testimonialCarousel">
+                <div class="testimonial-track">
+                    <div class="testimonial-slide active">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="testimonial-text">"Emmanuel delivered an outstanding enterprise system that transformed our operations. His attention to detail and understanding of complex business requirements is exceptional."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-user-tie"></i></div>
+                                <div><strong>Project Manager</strong><span>Enterprise Client</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                            <p class="testimonial-text">"The ICTAMS system Emmanuel built for KRA streamlined our entire ICT asset management process. Reliable, scalable, and delivered on time."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-building"></i></div>
+                                <div><strong>IT Director</strong><span>Kenya Revenue Authority</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-slide">
+                        <div class="testimonial-card">
+                            <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                            <p class="testimonial-text">"Working with Emmanuel on our cross-platform .NET MAUI application was a great experience. He brings both technical depth and creative problem-solving to every project."</p>
+                            <div class="testimonial-author">
+                                <div class="author-avatar"><i class="fas fa-laptop-code"></i></div>
+                                <div><strong>CTO</strong><span>Startup Client</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-nav">
+                    <button class="test-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                    <div class="testimonial-dots" id="testimonialDots"></div>
+                    <button class="test-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog / Articles -->
+    <section id="blog" class="blog">
+        <div class="container">
+            <h2 class="section-title">Latest Articles</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-tag">ASP.NET Core</div>
+                    <h3>Building Scalable APIs with ASP.NET Core</h3>
+                    <p>Best practices for designing RESTful APIs that handle millions of requests in enterprise environments.</p>
+                    <div class="blog-meta"><i class="fas fa-clock"></i> 5 min read <i class="fas fa-calendar"></i> 2024</div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-tag">.NET MAUI</div>
+                    <h3>Cross-Platform Mobile Development with .NET MAUI</h3>
+                    <p>How to build native-feeling apps for Android, iOS, and Windows from a single C# codebase.</p>
+                    <div class="blog-meta"><i class="fas fa-clock"></i> 7 min read <i class="fas fa-calendar"></i> 2024</div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-tag">DevOps</div>
+                    <h3>Enterprise Deployment: From Local to Cloud</h3>
+                    <p>A practical guide to deploying .NET applications on Azure with CI/CD pipelines and monitoring.</p>
+                    <div class="blog-meta"><i class="fas fa-clock"></i> 6 min read <i class="fas fa-calendar"></i> 2024</div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Facts -->
+    <section id="funfacts" class="funfacts">
+        <div class="container">
+            <h2 class="section-title">Fun Facts</h2>
+            <div class="funfacts-grid">
+                <div class="fact-card">
+                    <div class="fact-emoji">&#9749;</div>
+                    <div class="fact-number" data-target="500" data-suffix="+">0</div>
+                    <div class="fact-label">Cups of Coffee</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-emoji">&#128187;</div>
+                    <div class="fact-number" data-target="10000" data-suffix="+">0</div>
+                    <div class="fact-label">Lines of Code</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-emoji">&#127761;</div>
+                    <div class="fact-number" data-target="200" data-suffix="+">0</div>
+                    <div class="fact-label">Late Night Sessions</div>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-emoji">&#128640;</div>
+                    <div class="fact-number" data-target="50" data-suffix="+">0</div>
+                    <div class="fact-label">Bugs Squashed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Buy Me a Coffee -->
+    <section id="support" class="support-section">
+        <div class="container">
+            <div class="support-card">
+                <div class="support-icon">&#9749;</div>
+                <h2>Enjoying My Work?</h2>
+                <p>If my projects, tutorials, or code have helped you in any way, consider buying me a coffee. Your support keeps me coding through the late nights!</p>
+                <button class="coffee-btn" id="openPayModal">
+                    <span class="coffee-emoji">&#9749;</span> Buy Me a Coffee
+                </button>
+                <div class="support-stats">
+                    <div class="support-stat"><strong>500+</strong> Cups so far</div>
+                    <div class="support-stat"><strong>200+</strong> Supporters</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-question"><span>What technologies do you specialize in?</span><i class="fas fa-plus"></i></button>
+                    <div class="faq-answer"><p>I specialize in .NET ecosystem — ASP.NET Core, Blazor, .NET MAUI, C#, and SQL Server. I also handle API integrations, Cisco networking, and IT infrastructure setup.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>How long does a typical project take?</span><i class="fas fa-plus"></i></button>
+                    <div class="faq-answer"><p>It depends on complexity. A simple web app takes 2-4 weeks, while enterprise systems can take 2-6 months. I provide detailed timelines after the discovery phase.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>Do you offer ongoing support after deployment?</span><i class="fas fa-plus"></i></button>
+                    <div class="faq-answer"><p>Yes! I provide post-deployment support including bug fixes, feature updates, performance monitoring, and system maintenance packages.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>Can you work with remote teams?</span><i class="fas fa-plus"></i></button>
+                    <div class="faq-answer"><p>Absolutely. I've worked with teams across Kenya, Ghana, Uganda, and Mozambique. I use Agile methodology with regular standups and progress reporting.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question"><span>What is your pricing model?</span><i class="fas fa-plus"></i></button>
+                    <div class="faq-answer"><p>I offer both fixed-price and hourly-rate models depending on the project scope. Contact me for a free consultation and detailed quote.</p></div>
                 </div>
             </div>
         </div>
@@ -575,7 +949,7 @@
                             <i class="fab fa-github"></i>
                             <span>GitHub</span>
                         </a>
-                        <a href="https://youtube.com" target="_blank" class="contact-link">
+                        <a href="https://www.youtube.com/@developerkili" target="_blank" class="contact-link">
                             <i class="fab fa-youtube"></i>
                             <span>YouTube</span>
                         </a>
@@ -592,7 +966,7 @@
             <div class="social-links">
                 <a href="https://github.com/OBASAKILLI" target="_blank"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.youtube.com/@developerkili" target="_blank"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
     </footer>
@@ -605,22 +979,86 @@
         <a href="https://linkedin.com" target="_blank" title="LinkedIn">
             <i class="fab fa-linkedin"></i>
         </a>
-        <a href="https://youtube.com" target="_blank" title="YouTube">
+        <a href="https://www.youtube.com/@developerkili" target="_blank" title="YouTube">
             <i class="fab fa-youtube"></i>
         </a>
     </div>
 
-    <!-- Sticky Hire Me Button -->
-    <div class="hire-me-button">
-        <a href="#contact" class="hire-btn">
-            <span>Let's Work Together</span>
-            <i class="fas fa-arrow-right"></i>
-        </a>
+
+    <!-- Back to Top Rocket -->
+    <button class="rocket-top" id="rocketTop" aria-label="Back to top">
+        <i class="fas fa-rocket"></i>
+    </button>
+
+    <!-- Ambient Sound Toggle -->
+    <button class="sound-toggle muted" id="soundToggle" aria-label="Toggle ambient sound">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+
+    <!-- Payment Modal -->
+    <div class="pay-modal-overlay" id="payModal">
+        <div class="pay-modal">
+            <button class="pay-modal-close" id="payModalClose"><i class="fas fa-times"></i></button>
+            <div class="pay-modal-header">
+                <span class="pay-modal-icon">&#9749;</span>
+                <h3>Buy Me a Coffee</h3>
+                <p>Choose your preferred payment method</p>
+            </div>
+            <div class="pay-tabs">
+                <button class="pay-tab active" data-tab="mpesa">Lipa na M-Pesa</button>
+                <button class="pay-tab" data-tab="sendmoney">Send Money</button>
+                <button class="pay-tab" data-tab="card">Card / Bank</button>
+            </div>
+            <div class="pay-tab-content active" id="tab-mpesa">
+                <div class="pay-instructions">
+                    <div class="pay-step"><span class="step-num">1</span> Go to M-Pesa on your phone</div>
+                    <div class="pay-step"><span class="step-num">2</span> Select <strong>Lipa na M-Pesa</strong></div>
+                    <div class="pay-step"><span class="step-num">3</span> Select <strong>Buy Goods and Services</strong></div>
+                    <div class="pay-step"><span class="step-num">4</span> Enter Till Number:</div>
+                    <div class="pay-number-box">
+                        <span class="pay-number" id="tillNumber">9598045</span>
+                        <button class="pay-copy" onclick="navigator.clipboard.writeText('9598045');this.textContent='Copied!'"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <div class="pay-step"><span class="step-num">5</span> Enter amount & confirm</div>
+                </div>
+            </div>
+            <div class="pay-tab-content" id="tab-sendmoney">
+                <div class="pay-instructions">
+                    <div class="pay-step"><span class="step-num">1</span> Go to M-Pesa on your phone</div>
+                    <div class="pay-step"><span class="step-num">2</span> Select <strong>Send Money</strong></div>
+                    <div class="pay-step"><span class="step-num">3</span> Enter Phone Number:</div>
+                    <div class="pay-number-box">
+                        <span class="pay-number" id="phoneNumber">0799092727</span>
+                        <button class="pay-copy" onclick="navigator.clipboard.writeText('0799092727');this.textContent='Copied!'"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <div class="pay-step"><span class="step-num">4</span> Enter amount & confirm</div>
+                    <div class="pay-note">Name: <strong>Emmanuel Kiptoo Kili</strong></div>
+                </div>
+            </div>
+            <div class="pay-tab-content" id="tab-card">
+                <div class="pay-under-dev">
+                    <i class="fas fa-tools"></i>
+                    <h4>Under Development</h4>
+                    <p>Card and bank transfer payments are currently being set up. Please use M-Pesa or Send Money for now.</p>
+                    <p class="pay-alt">Alternatively, reach out via <a href="#contact">Contact</a> for other arrangements.</p>
+                </div>
+            </div>
+            <div class="pay-modal-footer">
+                <p>Thank you for your support! &#10084;&#65039;</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Easter Egg Warp Overlay -->
+    <div class="warp-overlay" id="warpOverlay">
+        <canvas id="warpCanvas"></canvas>
+        <div class="warp-text">You found the secret! 🚀<br><small style="font-size:0.8rem;color:#a855f7">Press Escape to return</small></div>
     </div>
 
     <!-- Chatbot Widget -->
     <button class="chat-toggle" aria-label="Open chat">
-        <i class="fas fa-comments"></i>
+        <i class="fas fa-robot"></i>
+        <span class="chat-label">AI Bot</span>
     </button>
     <div class="chat-widget" aria-hidden="true">
         <div class="chat-header">
