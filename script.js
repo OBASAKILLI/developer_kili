@@ -468,149 +468,605 @@ console.log('Portfolio loaded successfully!');
     tick();
 })();
 
-const chatToggle = document.querySelector('.chat-toggle');
-const chatWidget = document.querySelector('.chat-widget');
-const chatClose = document.querySelector('.chat-close');
-const chatInput = document.getElementById('chat-input');
-const chatSend = document.getElementById('chat-send');
-const chatMessages = document.getElementById('chat-messages');
+// === KILI AI CHATBOT ===
+(function() {
+    const chatToggle = document.querySelector('.chat-toggle');
+    const chatWidget = document.querySelector('.chat-widget');
+    const chatClose = document.querySelector('.chat-close');
+    const chatInput = document.getElementById('chat-input');
+    const chatSend = document.getElementById('chat-send');
+    const chatMessages = document.getElementById('chat-messages');
+    if (!chatToggle || !chatWidget) return;
 
-function scrollToSection(id) {
-    const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-}
+    // ── Conversation State ──
+    const state = {
+        history: [],
+        lastTopic: null,
+        userName: null,
+        messageCount: 0,
+        greeted: false,
+        topicsDiscussed: new Set()
+    };
 
-function appendMsg(sender, text, html) {
-    const div = document.createElement('div');
-    div.className = 'msg ' + sender;
-    if (html) div.innerHTML = html; else div.textContent = text;
-    chatMessages.appendChild(div);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+    // ── Knowledge Base ──
+    const KB = {
+        person: {
+            name: 'Emmanuel Kiptoo Kili',
+            nickname: 'Kili',
+            role: 'Software Developer & IT Specialist',
+            location: 'Kenya',
+            mission: 'Building scalable enterprise systems that empower organizations across Africa and beyond.',
+            bio: 'A passionate software developer with expertise in the .NET ecosystem, specializing in enterprise-grade web and mobile applications. Experienced in working with government institutions, healthcare systems, and manufacturing industries across multiple countries.',
+            yearsExp: '5+',
+            phone: '0799092727',
+            availability: 'Available for hire — open to full-time, contract, and freelance opportunities.'
+        },
+        skills: {
+            primary: ['.NET MAUI', 'Blazor', 'ASP.NET Core', 'C#'],
+            databases: ['SQL Server', 'MySQL', 'SQLite'],
+            other: ['API Integrations', 'Cisco Networking', 'IT Infrastructure', 'DevOps'],
+            tools: ['Visual Studio', 'Azure DevOps', 'Git', 'Docker', 'Postman']
+        },
+        projects: [
+            { name: 'E-Citizen of Ghana', tech: 'ASP.NET Core, Blazor', desc: 'Digital government services platform for Ghanaian citizens' },
+            { name: '24-Security App', tech: '.NET MAUI', desc: 'Mobile marketplace connecting security service providers with clients' },
+            { name: 'Capital Markets Authority', tech: 'ASP.NET Core', desc: 'Regulatory compliance platform for financial markets' },
+            { name: 'Relay E-Commerce', tech: '.NET MAUI', desc: 'Cross-platform e-commerce mobile application' },
+            { name: 'Pro-Silo Management', tech: 'ASP.NET Core, IoT', desc: 'Manufacturing silo monitoring with IoT integration' },
+            { name: 'ICTAMS (KRA)', tech: 'ASP.NET Core', desc: 'ICT Asset Management System for Kenya Revenue Authority' },
+            { name: 'MumCare App', tech: '.NET MAUI', desc: 'Maternal health reminders and tracking application' },
+            { name: 'Colnev Medicare', tech: 'ASP.NET Core, Blazor', desc: 'Electronic Medical Records system for healthcare facilities' }
+        ],
+        experience: [
+            { role: 'Software Developer', company: 'Multiple Enterprises', period: 'Current', desc: 'Building enterprise solutions for government and private sector across Africa.' },
+            { role: 'IT Infrastructure Specialist', company: 'Various', desc: 'Network setup, Cisco configurations, and server management.' }
+        ],
+        education: [
+            { degree: 'Software Engineering', institution: 'University studies in Computer Science & Software Engineering' },
+            { cert: 'Microsoft Certified', desc: '.NET development certifications' },
+            { cert: 'Cisco Networking', desc: 'Network infrastructure certifications' }
+        ],
+        services: [
+            'Custom Web Application Development',
+            'Mobile App Development (.NET MAUI)',
+            'API Design & Integration',
+            'IT Infrastructure & Network Setup',
+            'Database Design & Optimization',
+            'System Architecture Consulting'
+        ],
+        links: {
+            email: 'mailto:emmanuel@example.com',
+            github: 'https://github.com/OBASAKILLI',
+            linkedin: 'https://linkedin.com',
+            youtube: 'https://www.youtube.com/@developerkili'
+        },
+        funFacts: [
+            'Has consumed over 500 cups of coffee while coding',
+            'Has written more than 10,000 lines of code',
+            'Has worked on projects spanning 3+ countries in Africa',
+            'Loves late-night coding sessions',
+            'Is passionate about empowering African enterprises through technology'
+        ]
+    };
 
-function chips(items) {
-    const wrap = document.createElement('div');
-    wrap.className = 'suggestions';
-    items.forEach(t => {
-        const c = document.createElement('button');
-        c.type = 'button';
-        c.className = 'chip';
-        c.textContent = t;
-        c.addEventListener('click', () => {
-            handleSend(t);
-        });
-        wrap.appendChild(c);
-    });
-    chatMessages.appendChild(wrap);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-}
+    // ── Utility Functions ──
+    function scrollTo(id) {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
 
-function welcome() {
-    appendMsg('bot', "Hi, I'm your assistant. Ask me about Emmanuel, skills, projects, experience, education, or how to contact.");
-    chips(['Show skills', 'View projects', 'Experience', 'Education', 'Contact info']);
-}
+    function timeOfDay() {
+        const h = new Date().getHours();
+        if (h < 12) return 'morning';
+        if (h < 17) return 'afternoon';
+        return 'evening';
+    }
 
-const kb = {
-    name: 'Emmanuel Kiptoo Kili',
-    role: 'Software Developer & IT Specialist',
-    mission: 'Building scalable systems that empower enterprises.',
-    skills: ['.NET MAUI', 'Blazor', 'ASP.NET Core', 'C#', 'API Integrations', 'Networking', 'MySQL', 'SQLite', 'SQL Server'],
-    links: {
-        email: 'mailto:emmanuel@example.com',
-        github: 'https://github.com/OBASAKILLI',
-        linkedin: 'https://linkedin.com',
-        youtube: 'https://www.youtube.com/@developerkili'
-    },
-    projects: [
-        'E-Citizen of Ghana – ASP.NET Core, Blazor',
-        '24-Security App – Mobile service marketplace',
-        'Capital Markets Authority System – Compliance platform',
-        'Relay E-Commerce App – .NET MAUI cross-platform',
-        'Pro-Silo Management System – Manufacturing IoT',
-        'ICTAMS (KRA) – Asset Management',
-        'MumCare App – Health reminders',
-        'Colnev Medicare System – EMR'
-    ]
-};
+    function timestamp() {
+        return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
 
-function botReply(q) {
-    const s = q.toLowerCase().trim();
-    if (!s) return;
-    if (/(hello|hi|hey)\b/.test(s)) {
-        appendMsg('bot', `Hello! I'm here to guide you about ${kb.name}.`);
-        return chips(['Who is Emmanuel?', 'Show skills', 'View projects']);
+    function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
     }
-    if (/who|your name|about you/.test(s)) {
-        return appendMsg('bot', `${kb.name} — ${kb.role}. ${kb.mission}`);
-    }
-    if (/skill|stack|technology/.test(s)) {
-        scrollToSection('skills');
-        return appendMsg('bot', `Key skills: ${kb.skills.join(', ')}.`);
-    }
-    if (/project|portfolio|work/.test(s)) {
-        scrollToSection('projects');
-        return appendMsg('bot', `Some projects: ${kb.projects.slice(0,5).join(' • ')}. View more in the Projects section.`);
-    }
-    if (/experience|job|career/.test(s)) {
-        scrollToSection('experience');
-        return appendMsg('bot', 'Opening the Professional Experience timeline.');
-    }
-    if (/education|certificate|certification|degree/.test(s)) {
-        scrollToSection('education');
-        return appendMsg('bot', 'Showing Education & Certifications.');
-    }
-    if (/contact|reach|email|hire|cv|resume/.test(s)) {
-        scrollToSection('contact');
-        const links = kb.links;
-        const html = `Contact options:<br><a href="${links.email}">Email</a> • <a href="${links.linkedin}" target="_blank">LinkedIn</a> • <a href="${links.github}" target="_blank">GitHub</a> • <a href="${links.youtube}" target="_blank">YouTube</a>`;
-        return appendMsg('bot', '', html);
-    }
-    if (/github/.test(s)) {
-        return appendMsg('bot', '', `<a href="${kb.links.github}" target="_blank">Open GitHub profile</a>`);
-    }
-    if (/linkedin/.test(s)) {
-        return appendMsg('bot', '', `<a href="${kb.links.linkedin}" target="_blank">Open LinkedIn</a>`);
-    }
-    if (/youtube|video|channel/.test(s)) {
-        return appendMsg('bot', '', `<a href="${kb.links.youtube}" target="_blank">Visit YouTube</a>`);
-    }
-    if (/email|mail/.test(s)) {
-        return appendMsg('bot', '', `<a href="${kb.links.email}">Send Email</a>`);
-    }
-    if (/live demo|coding|code/.test(s)) {
-        scrollToSection('live');
-        return appendMsg('bot', 'Opening the Live Coding Demo section.');
-    }
-    appendMsg('bot', "I can help with skills, projects, experience, education, and contact info. Try 'View projects' or 'Show skills'.");
-}
 
-function handleSend(text) {
-    const msg = (text != null ? text : chatInput.value).trim();
-    if (!msg) return;
-    appendMsg('user', msg);
-    chatInput.value = '';
-    setTimeout(() => botReply(msg), 250);
-}
+    function delay() {
+        return 1200 + Math.random() * 1000;
+    }
 
-if (chatToggle && chatWidget) {
+    // ── Message Rendering ──
+    function appendMsg(sender, html) {
+        // Remove any existing typing indicator
+        const existingTyping = chatMessages.querySelector('.typing-indicator');
+        if (existingTyping) existingTyping.remove();
+
+        const div = document.createElement('div');
+        div.className = 'msg ' + sender;
+        div.innerHTML = html + `<span class="msg-time">${timestamp()}</span>`;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTyping() {
+        const div = document.createElement('div');
+        div.className = 'typing-indicator';
+        div.innerHTML = '<span></span><span></span><span></span>';
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function botSay(html, suggestionsArr) {
+        showTyping();
+        setTimeout(() => {
+            appendMsg('bot', html);
+            if (suggestionsArr && suggestionsArr.length) chips(suggestionsArr);
+        }, delay());
+    }
+
+    function chips(items) {
+        // Remove old suggestions
+        chatMessages.querySelectorAll('.suggestions').forEach(s => s.remove());
+        setTimeout(() => {
+            const wrap = document.createElement('div');
+            wrap.className = 'suggestions';
+            items.forEach(t => {
+                const c = document.createElement('button');
+                c.type = 'button';
+                c.className = 'chip';
+                c.textContent = t;
+                c.addEventListener('click', () => {
+                    wrap.remove();
+                    handleSend(t);
+                });
+                wrap.appendChild(c);
+            });
+            chatMessages.appendChild(wrap);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }, 150);
+    }
+
+    // ── Rich HTML Builders ──
+    function card(title, content) {
+        return `<div class="msg-card"><div class="msg-card-title">${title}</div>${content}</div>`;
+    }
+
+    function list(items) {
+        return `<ul class="msg-list">${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+    }
+
+    function linkBtn(url, label, external) {
+        return `<a href="${url}"${external ? ' target="_blank"' : ''} style="display:inline-flex;align-items:center;gap:4px;">${label}</a>`;
+    }
+
+    // ── Intent Detection (scored fuzzy matching) ──
+    const intents = [
+        { id: 'greeting',    keywords: ['hello', 'hi', 'hey', 'sup', 'howdy', 'good morning', 'good afternoon', 'good evening', 'greetings', 'whats up', "what's up", 'yo'], weight: 1 },
+        { id: 'farewell',    keywords: ['bye', 'goodbye', 'see you', 'later', 'take care', 'gotta go', 'ciao', 'peace out'], weight: 1 },
+        { id: 'thanks',      keywords: ['thank', 'thanks', 'thx', 'appreciate', 'grateful', 'cheers'], weight: 1 },
+        { id: 'who',         keywords: ['who is', 'who are', 'about emmanuel', 'about kili', 'tell me about', 'introduce', 'about him', 'about you', 'your name', 'who'], weight: 1.2 },
+        { id: 'skills',      keywords: ['skill', 'stack', 'technology', 'technologies', 'tech stack', 'what can he do', 'expertise', 'proficiency', 'tools', 'languages', 'frameworks', 'capable'], weight: 1.2 },
+        { id: 'projects',    keywords: ['project', 'portfolio', 'work', 'built', 'developed', 'applications', 'apps', 'showcase', 'case study', 'what has he built', 'creations'], weight: 1.2 },
+        { id: 'experience',  keywords: ['experience', 'job', 'career', 'work history', 'employment', 'professional', 'background', 'worked at', 'companies', 'resume'], weight: 1.2 },
+        { id: 'education',   keywords: ['education', 'certificate', 'certification', 'degree', 'university', 'study', 'qualified', 'credentials', 'school', 'academic', 'learning'], weight: 1.2 },
+        { id: 'contact',     keywords: ['contact', 'reach', 'hire', 'cv', 'available', 'email', 'phone', 'get in touch', 'connect', 'talk to', 'call', 'message'], weight: 1.1 },
+        { id: 'services',    keywords: ['service', 'offer', 'what do you do', 'consulting', 'freelance', 'help me', 'build me', 'develop', 'need a developer', 'looking for', 'hire', 'pricing'], weight: 1.1 },
+        { id: 'github',      keywords: ['github', 'git', 'repository', 'repos', 'source code', 'open source'], weight: 1 },
+        { id: 'linkedin',    keywords: ['linkedin', 'professional network', 'connect on linkedin'], weight: 1 },
+        { id: 'youtube',     keywords: ['youtube', 'video', 'channel', 'tutorials', 'watch', 'subscribe', 'content'], weight: 1 },
+        { id: 'blog',        keywords: ['blog', 'article', 'post', 'writing', 'read', 'publications'], weight: 1 },
+        { id: 'funfacts',    keywords: ['fun fact', 'interesting', 'hobby', 'hobbies', 'fun', 'random', 'tell me something', 'surprise me', 'cool fact'], weight: 1 },
+        { id: 'location',    keywords: ['where', 'location', 'based', 'country', 'city', 'from', 'live'], weight: 1 },
+        { id: 'availability',keywords: ['available', 'freelance', 'open to work', 'status', 'can i hire', 'hiring'], weight: 1.1 },
+        { id: 'coffee',      keywords: ['coffee', 'support', 'donate', 'buy me', 'mpesa', 'tip', 'contribute', 'pay'], weight: 1 },
+        { id: 'more',        keywords: ['more', 'tell me more', 'elaborate', 'detail', 'expand', 'go on', 'continue', 'what else', 'anything else'], weight: 0.8 },
+        { id: 'compliment',  keywords: ['awesome', 'great', 'amazing', 'impressive', 'cool', 'nice', 'beautiful', 'love it', 'well done', 'fantastic', 'excellent'], weight: 0.9 },
+        { id: 'joke',        keywords: ['joke', 'funny', 'laugh', 'humor', 'make me laugh', 'tell me a joke'], weight: 1 },
+        { id: 'help',        keywords: ['help', 'what can you do', 'menu', 'options', 'commands', 'how to use', 'guide'], weight: 1 }
+    ];
+
+    function detectIntent(input) {
+        const s = input.toLowerCase().trim();
+        let bestIntent = null;
+        let bestScore = 0;
+
+        for (const intent of intents) {
+            let score = 0;
+            for (const kw of intent.keywords) {
+                if (s.includes(kw)) {
+                    // Longer keyword matches score higher
+                    score += (kw.split(' ').length * intent.weight);
+                }
+            }
+            // Boost exact matches
+            if (intent.keywords.includes(s)) score += 3;
+            if (score > bestScore) {
+                bestScore = score;
+                bestIntent = intent.id;
+            }
+        }
+        return bestScore > 0 ? bestIntent : 'unknown';
+    }
+
+    // ── Detect user name from input ──
+    function extractName(input) {
+        const patterns = [
+            /(?:my name is|i'm|i am|call me|this is)\s+([A-Z][a-z]+)/i,
+            /^([A-Z][a-z]+)\s+here$/i
+        ];
+        for (const p of patterns) {
+            const m = input.match(p);
+            if (m) return m[1];
+        }
+        return null;
+    }
+
+    // ── Response Handlers ──
+    const responses = {
+        greeting() {
+            const greetings = [
+                `Good ${timeOfDay()}! I'm <strong>Kili AI</strong>, Emmanuel's virtual assistant. How can I help you today?`,
+                `Hey there! Welcome! I'm here to tell you all about <strong>Emmanuel Kiptoo Kili</strong> and his work. What would you like to know?`,
+                `Hello! Great to see you here. I can share details about Emmanuel's skills, projects, experience, and more. Just ask!`
+            ];
+            const name = state.userName;
+            let msg = pick(greetings);
+            if (name) msg = msg.replace('Hey there!', `Hey ${name}!`).replace('Hello!', `Hello ${name}!`);
+            state.greeted = true;
+            botSay(msg, ['Who is Emmanuel?', 'View projects', 'Skills & tech stack', 'Services offered']);
+        },
+
+        farewell() {
+            const farewells = [
+                `Goodbye! It was great chatting with you. Feel free to come back anytime!`,
+                `See you later! Don't forget — Emmanuel is <strong>available for hire</strong> if you need a developer.`,
+                `Take care! If you need anything else, I'm always here. Have a wonderful ${timeOfDay()}!`
+            ];
+            botSay(pick(farewells));
+        },
+
+        thanks() {
+            const replies = [
+                `You're welcome! Is there anything else you'd like to know?`,
+                `Happy to help! Feel free to ask more questions.`,
+                `Glad I could assist! Anything else on your mind?`
+            ];
+            botSay(pick(replies), ['View projects', 'Contact Emmanuel', 'Services offered']);
+        },
+
+        who() {
+            state.lastTopic = 'who';
+            state.topicsDiscussed.add('who');
+            const p = KB.person;
+            const html = `<strong>${p.name}</strong> is a <strong>${p.role}</strong> based in ${p.location} with ${p.yearsExp} years of experience.` +
+                `<br><br>${p.bio}` +
+                card('Mission', `<em>"${p.mission}"</em>`);
+            botSay(html, ['View skills', 'See projects', 'Work experience', 'Hire Emmanuel']);
+        },
+
+        skills() {
+            state.lastTopic = 'skills';
+            state.topicsDiscussed.add('skills');
+            scrollTo('skills');
+            const s = KB.skills;
+            const html = `Here's Emmanuel's technical arsenal:` +
+                card('Primary Stack', list(s.primary)) +
+                card('Databases', list(s.databases)) +
+                card('Other Skills', list(s.other)) +
+                card('Dev Tools', list(s.tools));
+            botSay(html, ['View projects', 'Services offered', 'Work experience']);
+        },
+
+        projects() {
+            state.lastTopic = 'projects';
+            state.topicsDiscussed.add('projects');
+            scrollTo('projects');
+            const projHtml = KB.projects.map(p =>
+                `<strong>${p.name}</strong> — <em>${p.tech}</em><br><span style="color:rgba(255,255,255,0.5);font-size:0.78rem">${p.desc}</span>`
+            ).join('<br><br>');
+            const html = `Emmanuel has built impactful solutions across government, healthcare, and enterprise:` +
+                card('Project Portfolio', projHtml) +
+                `<br>These projects span across <strong>3+ African countries</strong>.`;
+            botSay(html, ['Tell me about skills', 'Work experience', 'Contact Emmanuel']);
+        },
+
+        experience() {
+            state.lastTopic = 'experience';
+            state.topicsDiscussed.add('experience');
+            scrollTo('experience');
+            const html = `Emmanuel has <strong>${KB.person.yearsExp} years</strong> of professional experience in software development and IT infrastructure.` +
+                card('Career Highlights', list([
+                    'Built enterprise solutions for government institutions (KRA, Ghana E-Citizen)',
+                    'Developed healthcare systems (MumCare, Colnev Medicare)',
+                    'Created manufacturing IoT solutions (Pro-Silo)',
+                    'Deployed mobile apps across multiple platforms',
+                    'Managed IT infrastructure and Cisco networking setups'
+                ])) +
+                `<br>I've scrolled to the <strong>Experience</strong> section for you.`;
+            botSay(html, ['View projects', 'Education & certs', 'Hire Emmanuel']);
+        },
+
+        education() {
+            state.lastTopic = 'education';
+            state.topicsDiscussed.add('education');
+            scrollTo('education');
+            const html = `Emmanuel's educational background and certifications:` +
+                card('Qualifications', list([
+                    'Software Engineering & Computer Science studies',
+                    'Microsoft Certified — .NET Development',
+                    'Cisco Networking Certifications',
+                    'Continuous self-learning and online courses'
+                ])) +
+                `<br>I've navigated to the <strong>Education</strong> section.`;
+            botSay(html, ['View skills', 'Work experience', 'Contact']);
+        },
+
+        contact() {
+            state.lastTopic = 'contact';
+            state.topicsDiscussed.add('contact');
+            scrollTo('contact');
+            const l = KB.links;
+            const html = `Here's how you can reach Emmanuel:` +
+                card('Contact Options',
+                    `${linkBtn(l.email, '📧 Send Email')} &nbsp; ${linkBtn(l.linkedin, '💼 LinkedIn', true)}<br><br>` +
+                    `${linkBtn(l.github, '💻 GitHub', true)} &nbsp; ${linkBtn(l.youtube, '🎬 YouTube', true)}`
+                ) +
+                `<br><strong>Phone:</strong> ${KB.person.phone}<br>` +
+                `<br><em>${KB.person.availability}</em>`;
+            botSay(html, ['Services offered', 'View projects', 'Buy me a coffee']);
+        },
+
+        services() {
+            state.lastTopic = 'services';
+            state.topicsDiscussed.add('services');
+            scrollTo('services');
+            const html = `Emmanuel offers professional development services:` +
+                card('Services', list(KB.services)) +
+                `<br>Whether you need a full web app, a mobile solution, or IT infrastructure setup — Emmanuel can help!`;
+            botSay(html, ['Contact Emmanuel', 'View projects', 'Check availability']);
+        },
+
+        github() {
+            state.topicsDiscussed.add('github');
+            const html = `Check out Emmanuel's open-source work and repositories:<br><br>` +
+                `${linkBtn(KB.links.github, '🔗 Visit GitHub Profile', true)}<br><br>` +
+                `You'll find code samples, project repos, and contributions there.`;
+            botSay(html, ['View projects', 'YouTube channel', 'LinkedIn']);
+        },
+
+        linkedin() {
+            state.topicsDiscussed.add('linkedin');
+            const html = `Connect with Emmanuel professionally:<br><br>` +
+                `${linkBtn(KB.links.linkedin, '🔗 Open LinkedIn Profile', true)}<br><br>` +
+                `Great for professional networking and career opportunities.`;
+            botSay(html, ['GitHub profile', 'Contact', 'YouTube']);
+        },
+
+        youtube() {
+            state.topicsDiscussed.add('youtube');
+            const html = `Emmanuel shares tutorials and dev content on YouTube:<br><br>` +
+                `${linkBtn(KB.links.youtube, '🎬 Visit YouTube Channel', true)}<br><br>` +
+                `Subscribe for .NET, Blazor, and software development tutorials!`;
+            botSay(html, ['GitHub profile', 'View projects', 'LinkedIn']);
+        },
+
+        blog() {
+            state.topicsDiscussed.add('blog');
+            scrollTo('blog');
+            const html = `Emmanuel writes about software development topics:` +
+                card('Recent Articles', list([
+                    'Building Enterprise APIs with ASP.NET Core',
+                    'Cross-Platform Development with .NET MAUI',
+                    'DevOps Best Practices for .NET Projects'
+                ])) +
+                `<br>I've scrolled to the <strong>Blog</strong> section for you.`;
+            botSay(html, ['View projects', 'Skills', 'Contact']);
+        },
+
+        funfacts() {
+            state.topicsDiscussed.add('funfacts');
+            scrollTo('funfacts');
+            const fact = pick(KB.funFacts);
+            const html = `Here's a fun fact about Emmanuel:<br><br>` +
+                `<strong>💡 ${fact}</strong><br><br>` +
+                `Want to hear another one?`;
+            botSay(html, ['Another fun fact', 'View projects', 'Skills']);
+        },
+
+        location() {
+            const html = `Emmanuel is based in <strong>${KB.person.location}</strong>.<br><br>` +
+                `He works with clients both locally and internationally, having delivered projects across <strong>Kenya, Ghana, and other African nations</strong>.<br><br>` +
+                `He's open to remote work and international collaborations.`;
+            botSay(html, ['Hire Emmanuel', 'Services offered', 'View projects']);
+        },
+
+        availability() {
+            const html = `<span style="color:#00ff64;font-weight:700">● Available for Hire</span><br><br>` +
+                `Emmanuel is currently <strong>open to opportunities</strong> including:<br>` +
+                list(['Full-time positions', 'Contract work', 'Freelance projects', 'Technical consulting']) +
+                `<br>Ready to start a conversation?`;
+            botSay(html, ['Contact Emmanuel', 'Services offered', 'View projects']);
+        },
+
+        coffee() {
+            state.topicsDiscussed.add('coffee');
+            scrollTo('support');
+            const html = `Love Emmanuel's work? Support him with a coffee! ☕<br><br>` +
+                card('Payment Options', 
+                    `<strong>Lipa na M-Pesa:</strong> Till No. <strong>9598045</strong><br>` +
+                    `<strong>Send Money:</strong> <strong>0799092727</strong><br>` +
+                    `<em style="font-size:0.78rem;color:rgba(255,255,255,0.4)">Name: Emmanuel Kiptoo Kili</em>`
+                ) +
+                `<br>You can also click the <strong>Buy Me a Coffee</strong> button for full payment details.`;
+            botSay(html, ['View projects', 'Contact', 'Back to top']);
+        },
+
+        more() {
+            const last = state.lastTopic;
+            if (!last) {
+                return botSay(`What would you like to know more about? I can tell you about Emmanuel's skills, projects, experience, or services.`,
+                    ['Skills', 'Projects', 'Experience', 'Services']);
+            }
+            const moreMap = {
+                who: () => {
+                    botSay(`More about Emmanuel:<br><br>He's driven by a passion for using technology to solve real-world problems in Africa. From digitizing government services to building healthcare platforms, every project has a purpose.` +
+                        card('Key Strengths', list(['Problem solver with enterprise mindset', 'Full-stack .NET expertise', 'Cross-country project delivery', 'Strong communication skills'])),
+                        ['View projects', 'Services', 'Contact']);
+                },
+                skills: () => {
+                    botSay(`Diving deeper into Emmanuel's expertise:<br><br>He doesn't just write code — he architects <strong>complete systems</strong>. From database design to API architecture to deployment pipelines, he handles the full software lifecycle.` +
+                        card('Specialized In', list(['Enterprise resource planning (ERP) systems', 'Government digital transformation', 'Healthcare information systems', 'IoT-connected manufacturing solutions'])),
+                        ['Projects', 'Experience', 'Contact']);
+                },
+                projects: () => {
+                    botSay(`What makes Emmanuel's projects special:<br><br>Each project addresses a <strong>real-world need</strong>. The E-Citizen platform serves millions, the KRA system manages national assets, and MumCare protects maternal health.` +
+                        `<br><br>These aren't just coding exercises — they're <strong>solutions that impact lives</strong>.`,
+                        ['Skills', 'Hire Emmanuel', 'Fun facts']);
+                }
+            };
+            if (moreMap[last]) return moreMap[last]();
+            return responses[last] ? responses[last]() : responses.help();
+        },
+
+        compliment() {
+            const replies = [
+                `Thank you! I'll pass that along to Emmanuel. He put a lot of effort into this portfolio!`,
+                `That's kind of you to say! Emmanuel is always working to improve and deliver the best.`,
+                `Glad you like it! Emmanuel would appreciate hearing that. Want to connect with him?`
+            ];
+            botSay(pick(replies), ['Contact Emmanuel', 'View projects', 'Buy me a coffee']);
+        },
+
+        joke() {
+            const jokes = [
+                `Why do programmers prefer dark mode? Because light attracts bugs! 🐛`,
+                `A SQL query walks into a bar, walks up to two tables, and asks... "Can I join you?" 🍻`,
+                `Why was the JavaScript developer sad? Because he didn't Node how to Express himself! 😄`,
+                `There are only 10 types of people in the world: those who understand binary, and those who don't. 🤓`,
+                `Emmanuel's code doesn't have bugs — it has "surprise features." ✨`
+            ];
+            botSay(pick(jokes), ['Another joke', 'Back to business', 'View projects']);
+        },
+
+        help() {
+            const html = `I'm <strong>Kili AI</strong>, Emmanuel's virtual assistant. Here's what I can help with:` +
+                card('Ask Me About', list([
+                    '<strong>Who is Emmanuel?</strong> — Background & mission',
+                    '<strong>Skills</strong> — Tech stack & expertise',
+                    '<strong>Projects</strong> — Portfolio & case studies',
+                    '<strong>Experience</strong> — Career timeline',
+                    '<strong>Education</strong> — Qualifications & certs',
+                    '<strong>Services</strong> — What Emmanuel offers',
+                    '<strong>Contact</strong> — How to reach him',
+                    '<strong>Fun facts</strong> — Interesting tidbits',
+                    '<strong>Buy me a coffee</strong> — Support his work'
+                ])) +
+                `<br>You can also ask me for a <strong>joke</strong>, or just chat naturally!`;
+            botSay(html, ['Who is Emmanuel?', 'View projects', 'Skills', 'Contact']);
+        },
+
+        unknown(input) {
+            // Try to be helpful even with unknown input
+            const suggestions = [];
+            if (!state.topicsDiscussed.has('who')) suggestions.push('Who is Emmanuel?');
+            if (!state.topicsDiscussed.has('projects')) suggestions.push('View projects');
+            if (!state.topicsDiscussed.has('skills')) suggestions.push('Skills & tech');
+            if (!state.topicsDiscussed.has('contact')) suggestions.push('Contact info');
+            if (suggestions.length === 0) suggestions.push('Services', 'Fun facts', 'Help');
+
+            const unknowns = [
+                `I'm not sure I understood that. I'm best at answering questions about Emmanuel's skills, projects, and experience. Let me help you find what you need!`,
+                `Hmm, I don't have an answer for that one. Try asking about Emmanuel's work, skills, or how to contact him.`,
+                `That's a bit outside my expertise! I specialize in everything about Emmanuel Kiptoo Kili. Here are some things I can help with:`
+            ];
+            botSay(pick(unknowns), suggestions);
+        }
+    };
+
+    // ── Main Processing ──
+    function processMessage(input) {
+        state.messageCount++;
+        state.history.push({ role: 'user', text: input });
+
+        // Check for name introduction
+        const name = extractName(input);
+        if (name) {
+            state.userName = name;
+            botSay(`Nice to meet you, <strong>${name}</strong>! How can I help you today?`, ['Who is Emmanuel?', 'View projects', 'Skills']);
+            return;
+        }
+
+        // Detect intent
+        const intent = detectIntent(input);
+
+        // Handle "another" for repeatable intents
+        if (/another|one more/i.test(input)) {
+            if (state.lastTopic === 'funfacts') return responses.funfacts();
+            if (state.lastTopic === 'joke' || /joke/i.test(input)) return responses.joke();
+        }
+
+        // Handle "back to business" chip
+        if (/back to business/i.test(input)) return responses.help();
+
+        // Route to handler
+        if (responses[intent]) {
+            if (['who','skills','projects','experience','education','services','contact','funfacts','blog'].includes(intent)) {
+                state.lastTopic = intent;
+            }
+            if (intent === 'joke') state.lastTopic = 'joke';
+            responses[intent]();
+        } else {
+            responses.unknown(input);
+        }
+    }
+
+    // ── Welcome Message ──
+    function welcome() {
+        const hour = new Date().getHours();
+        let greeting;
+        if (hour < 12) greeting = 'Good morning';
+        else if (hour < 17) greeting = 'Good afternoon';
+        else greeting = 'Good evening';
+
+        showTyping();
+        setTimeout(() => {
+            appendMsg('bot',
+                `${greeting}! I'm <strong>Kili AI</strong>, Emmanuel's virtual assistant. 🤖<br><br>` +
+                `I can tell you about his <strong>skills</strong>, <strong>projects</strong>, <strong>experience</strong>, <strong>services</strong>, and much more. Just type a question or tap a suggestion below!`
+            );
+            chips(['Who is Emmanuel?', 'View projects', 'Skills & tech', 'Services offered', 'Contact info']);
+        }, delay());
+    }
+
+    // ── Send Handler ──
+    function handleSend(text) {
+        const msg = (text != null ? text : chatInput.value).trim();
+        if (!msg) return;
+        appendMsg('user', msg);
+        chatInput.value = '';
+        // Remove old suggestion chips
+        chatMessages.querySelectorAll('.suggestions').forEach(s => s.remove());
+        processMessage(msg);
+    }
+
+    // ── Event Listeners ──
     chatToggle.addEventListener('click', () => {
         chatWidget.classList.toggle('open');
         const open = chatWidget.classList.contains('open');
         chatWidget.setAttribute('aria-hidden', open ? 'false' : 'true');
         if (open && chatMessages.childElementCount === 0) welcome();
-        if (open) chatInput.focus();
+        if (open) setTimeout(() => chatInput.focus(), 100);
     });
-}
 
-if (chatClose) {
-    chatClose.addEventListener('click', () => {
-        chatWidget.classList.remove('open');
-        chatWidget.setAttribute('aria-hidden', 'true');
-    });
-}
+    if (chatClose) {
+        chatClose.addEventListener('click', () => {
+            chatWidget.classList.remove('open');
+            chatWidget.setAttribute('aria-hidden', 'true');
+        });
+    }
 
-if (chatSend) chatSend.addEventListener('click', () => handleSend());
-if (chatInput) chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
+    if (chatSend) chatSend.addEventListener('click', () => handleSend());
+    if (chatInput) chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleSend(); });
+})();
 
 // === PAYMENT MODAL ===
 (function() {
